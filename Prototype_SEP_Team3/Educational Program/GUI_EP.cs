@@ -16,6 +16,8 @@ namespace Prototype_SEP_Team3.Educational_Program
         DBEntities db;
         ThongTinChung_CTDT load;
 
+        int checkck;
+
         private List<string> mtc = new List<string>();
         private List<string> mtct_pc = new List<string>();
         private List<string> mtct_kt = new List<string>();
@@ -46,7 +48,12 @@ namespace Prototype_SEP_Team3.Educational_Program
             idctdt = id;
 
             db = new DBEntities();
+           
             loadCTDT();
+
+
+            
+            
             
         }
         //LOAD FORM
@@ -97,14 +104,12 @@ namespace Prototype_SEP_Team3.Educational_Program
             //Nhiều mục
             nThờigian_năm.Value = (decimal)load.ThoiGianDaoTao.Value;
             nThangđiểm.Value = (decimal)load.ThangDiem;
-            object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent",new string[]{ load.KhoiLuongKienThucToanKhoa.ToString()});
-            object dt = wbĐốitượng.Document.InvokeScript("setcontent", new string[] { load.DoiTuongTuyenSinh.ToString() });
-            object qt = wbQuytrình.Document.InvokeScript("setcontent", new string[] { load.QuyTrinhDaoTao.ToString() });
-           
+                 
             //quản lí môn học
             loadCourseview();
-            //cở sở vật chất
-            object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", new string[] { load.CoSoVatChat.ToString() });
+            //load ckeditor
+            
+            
 
         }
 
@@ -132,26 +137,91 @@ namespace Prototype_SEP_Team3.Educational_Program
         private void ClickThoigiandaotao(object sender, EventArgs e)
         {
             tclMain.SelectedIndex = 2;
+            if (checkck == 0)
+            {
+                object[] klktlst = new object[1] { load.KhoiLuongKienThucToanKhoa };
+                object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent", klktlst);
+                object[] dtlst = new object[1] { load.DoiTuongTuyenSinh.ToString() };
+                object dt = wbĐốitượng.Document.InvokeScript("setcontent", dtlst);
+                object[] qtlst = new object[1] { load.QuyTrinhDaoTao.ToString() };
+                object qt = wbQuytrình.Document.InvokeScript("setcontent", qtlst);
+                object[] csvclst = new object[1] { load.CoSoVatChat.ToString() };
+                object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", csvclst);
+
+                checkck = 1;
+            }
         }
 
         private void ClickKhoiluongkienthuc(object sender, EventArgs e)
         {
             tclMain.SelectedIndex = 2;
+            if (checkck == 0)
+            {
+                object[] klktlst = new object[1] { load.KhoiLuongKienThucToanKhoa };
+                object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent", klktlst);
+                object[] dtlst = new object[1] { load.DoiTuongTuyenSinh.ToString() };
+                object dt = wbĐốitượng.Document.InvokeScript("setcontent", dtlst);
+                object[] qtlst = new object[1] { load.QuyTrinhDaoTao.ToString() };
+                object qt = wbQuytrình.Document.InvokeScript("setcontent", qtlst);
+                object[] csvclst = new object[1] { load.CoSoVatChat.ToString() };
+                object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", csvclst);
+
+                checkck = 1;
+            }
         }
 
         private void ClickDoituongtuyensinh(object sender, EventArgs e)
         {
             tclMain.SelectedIndex = 2;
+            if (checkck == 0)
+            {
+                object[] klktlst = new object[1] { load.KhoiLuongKienThucToanKhoa };
+                object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent", klktlst);
+                object[] dtlst = new object[1] { load.DoiTuongTuyenSinh.ToString() };
+                object dt = wbĐốitượng.Document.InvokeScript("setcontent", dtlst);
+                object[] qtlst = new object[1] { load.QuyTrinhDaoTao.ToString() };
+                object qt = wbQuytrình.Document.InvokeScript("setcontent", qtlst);
+                object[] csvclst = new object[1] { load.CoSoVatChat.ToString() };
+                object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", csvclst);
+
+                checkck = 1;
+            }
         }
 
         private void ClickQuytrinhdaotao(object sender, EventArgs e)
         {
             tclMain.SelectedIndex = 2;
+            if (checkck == 0)
+            {
+                object[] klktlst = new object[1] { load.KhoiLuongKienThucToanKhoa };
+                object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent", klktlst);
+                object[] dtlst = new object[1] { load.DoiTuongTuyenSinh.ToString() };
+                object dt = wbĐốitượng.Document.InvokeScript("setcontent", dtlst);
+                object[] qtlst = new object[1] { load.QuyTrinhDaoTao.ToString() };
+                object qt = wbQuytrình.Document.InvokeScript("setcontent", qtlst);
+                object[] csvclst = new object[1] { load.CoSoVatChat.ToString() };
+                object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", csvclst);
+
+                checkck = 1;
+            }
         }
 
         private void ClickThangdiem(object sender, EventArgs e)
         {
             tclMain.SelectedIndex = 2;
+            if (checkck == 0)
+            {
+                object[] klktlst = new object[1] { load.KhoiLuongKienThucToanKhoa };
+                object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent", klktlst);
+                object[] dtlst = new object[1] { load.DoiTuongTuyenSinh.ToString() };
+                object dt = wbĐốitượng.Document.InvokeScript("setcontent", dtlst);
+                object[] qtlst = new object[1] { load.QuyTrinhDaoTao.ToString() };
+                object qt = wbQuytrình.Document.InvokeScript("setcontent", qtlst);
+                object[] csvclst = new object[1] { load.CoSoVatChat.ToString() };
+                object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", csvclst);
+
+                checkck = 1;
+            }
         }
 
         private void ClickNoidungchuongtrinh(object sender, EventArgs e)
@@ -197,6 +267,19 @@ namespace Prototype_SEP_Team3.Educational_Program
             if (tclMain.SelectedIndex < 8)
             {
                 tclMain.SelectedIndex = tclMain.SelectedIndex + 1;
+            }
+            if (checkck == 0)
+            {
+                object[] klktlst = new object[1] { load.KhoiLuongKienThucToanKhoa };
+                object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent", klktlst);
+                object[] dtlst = new object[1] { load.DoiTuongTuyenSinh.ToString() };
+                object dt = wbĐốitượng.Document.InvokeScript("setcontent", dtlst);
+                object[] qtlst = new object[1] { load.QuyTrinhDaoTao.ToString() };
+                object qt = wbQuytrình.Document.InvokeScript("setcontent", qtlst);
+                object[] csvclst = new object[1] { load.CoSoVatChat.ToString() };
+                object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", csvclst);
+
+                checkck = 1;
             }
         }
 
@@ -694,11 +777,11 @@ namespace Prototype_SEP_Team3.Educational_Program
                {
                    bus.handleThoigiandaotao(idctdt);
                }
-               nThờigian_họckì.Value = (int)nThờigian_năm.Value * 2;
+               nThờigian_họckì.Value = (int)(nThờigian_năm.Value * 2);
             }
             else
             {
-                nThờigian_họckì.Value = (int)nThờigian_năm.Value * 2;
+                nThờigian_họckì.Value = (int)(nThờigian_năm.Value * 2);
             }
         }
 
@@ -781,6 +864,11 @@ namespace Prototype_SEP_Team3.Educational_Program
             db.SaveChanges();
             MessageBox.Show("Chỉnh sửa thành công");
             this.Close();
+        }
+
+        private void btnNhieumuc_Click(object sender, EventArgs e)
+        {
+            
         }
        
 
