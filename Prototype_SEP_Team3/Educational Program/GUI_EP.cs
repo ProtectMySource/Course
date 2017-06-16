@@ -13,6 +13,9 @@ namespace Prototype_SEP_Team3.Educational_Program
 {
     public partial class GUI_EP : Form
     {
+        DBEntities db;
+        ThongTinChung_CTDT load;
+
         private List<string> mtc = new List<string>();
         private List<string> mtct_pc = new List<string>();
         private List<string> mtct_kt = new List<string>();
@@ -23,6 +26,8 @@ namespace Prototype_SEP_Team3.Educational_Program
         int itemposition = 0;
 
         int idctdt;
+
+        BUS_EP bus = new BUS_EP();
 
         public GUI_EP(int id)
         {
@@ -40,10 +45,67 @@ namespace Prototype_SEP_Team3.Educational_Program
             btnMụctiêu_sửa.Visible = false;
             idctdt = id;
 
-            DBEntities db = new DBEntities();
-            ChuongTrinhDaoTao load = db.ChuongTrinhDaoTaos.Single(x => x.Id == idctdt);
-            txtTên.Text = load.TenCTDT.ToString();
+            db = new DBEntities();
+            loadCTDT();
+            
+        }
+        //LOAD FORM
+        private void loadCTDT()
+        {
+            load = db.ThongTinChung_CTDT.Single(x => x.Id == idctdt);
+            //Thông tin chung
+            txtTên.Text = load.TenChuongTrinh;
+            txtTênEL.Text = load.TenTiengAnh;
+            if (load.TrinhDo == "Đại học")
+            {
+                cboTrìnhđộ.SelectedIndex = 0;
+            }
+            else
+            {
+                cboTrìnhđộ.SelectedIndex = 1;
+            }
+            txtNgành.Text = load.Nganh;
+            txtLoạiđàotạo.Text = load.LoaiHinh;
+
+            //Mục tiêu đào tạo
+            List<MucTieuDaoTao> muctieulst = db.MucTieuDaoTaos.ToList();
+            for(int i=0;i<muctieulst.Count;i++)
+            {
+                if (muctieulst[i].Loai == "Chung")
+                {
+                    mtc.Add(muctieulst[i].NoiDung);
+                }
+                if (muctieulst[i].Loai == "Phẩm chất")
+                {
+                    mtct_pc.Add(muctieulst[i].NoiDung);
+                }
+                if (muctieulst[i].Loai == "Kiến thức")
+                {
+                    mtct_kt.Add(muctieulst[i].NoiDung);
+                }
+                if (muctieulst[i].Loai == "Kĩ năng")
+                {
+                    mtct_kn.Add(muctieulst[i].NoiDung);
+                }
+                if (muctieulst[i].Loai == "Thái độ")
+                {
+                    mtct_td.Add(muctieulst[i].NoiDung);
+                }
+            }
+            ShowMuctieudaotao();
+
+            //Nhiều mục
+            nThờigian_năm.Value = (decimal)load.ThoiGianDaoTao.Value;
+            nThangđiểm.Value = (decimal)load.ThangDiem;
+            object klkt = wbKhốilượngkt.Document.InvokeScript("setcontent",new string[]{ load.KhoiLuongKienThucToanKhoa.ToString()});
+            object dt = wbĐốitượng.Document.InvokeScript("setcontent", new string[] { load.DoiTuongTuyenSinh.ToString() });
+            object qt = wbQuytrình.Document.InvokeScript("setcontent", new string[] { load.QuyTrinhDaoTao.ToString() });
+           
+            //quản lí môn học
             loadCourseview();
+            //cở sở vật chất
+            object csvc = wbCơsởvậtchất.Document.InvokeScript("setcontent", new string[] { load.CoSoVatChat.ToString() });
+
         }
 
         //SET UP MỤC LỤC
@@ -623,8 +685,102 @@ namespace Prototype_SEP_Team3.Educational_Program
         //NHIỀU MỤC
         //Xử lí khi người dùng thay đổi thời gian đào tạo của chương trình
         private void nThờigian_năm_ValueChanged(object sender, EventArgs e)
-        {
+        {            
+            string rs = bus.checkThoigiandaotao((double)nThờigian_năm.Value,idctdt);
+            if (rs == "false")
+            {
+               DialogResult msrs =  MessageBox.Show("Nếu thay đổi đối tượng này, học kì giảng dạy của các môn học sẽ đưa về Học kì 1, đồng thời tất cả quan hệ môn tiên quyết cũng bị hủy. Bạn có chắc chắn muốn thực hiện điều này không?", "Cảnh báo", MessageBoxButtons.YesNo);
+               if (msrs == System.Windows.Forms.DialogResult.Yes)
+               {
+                   bus.handleThoigiandaotao(idctdt);
+               }
+               nThờigian_họckì.Value = (int)nThờigian_năm.Value * 2;
+            }
+            else
+            {
+                nThờigian_họckì.Value = (int)nThờigian_năm.Value * 2;
+            }
+        }
 
+        //Edit CTDT
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            load.TenChuongTrinh = txtTên.Text;
+            load.TenTiengAnh = txtTênEL.Text;
+            load.TrinhDo = cboTrìnhđộ.Text;
+            load.Nganh = txtNgành.Text ;
+            load.LoaiHinh = txtLoạiđàotạo.Text;
+
+            //Mục tiêu đào tạo
+            db.SP_MUCTIEUDAOTAO_DEL(idctdt);
+            for (int i = 0; i < mtc.Count; i++)
+            {
+                MucTieuDaoTao add = new MucTieuDaoTao();
+                add.Loai = "Chung";
+                add.NoiDung = mtc[i];
+                add.STT = i+1;
+                add.ChuongTrinhDaoTao_Id = idctdt;
+                db.MucTieuDaoTaos.Add(add);
+                db.SaveChanges();
+            }
+            for (int i = 0; i < mtct_pc.Count; i++)
+            {
+                MucTieuDaoTao add = new MucTieuDaoTao();
+                add.Loai = "Phẩm chất";
+                add.NoiDung = mtct_pc[i];
+                add.STT = i + 1;
+                add.ChuongTrinhDaoTao_Id = idctdt;
+                db.MucTieuDaoTaos.Add(add);
+                db.SaveChanges();
+            }
+            for (int i = 0; i < mtct_kt.Count; i++)
+            {
+                MucTieuDaoTao add = new MucTieuDaoTao();
+                add.Loai = "Kiến thức";
+                add.NoiDung = mtct_kt[i];
+                add.STT = i + 1;
+                add.ChuongTrinhDaoTao_Id = idctdt;
+                db.MucTieuDaoTaos.Add(add);
+                db.SaveChanges();
+            }
+            for (int i = 0; i < mtct_kn.Count; i++)
+            {
+                MucTieuDaoTao add = new MucTieuDaoTao();
+                add.Loai = "Kĩ năng";
+                add.NoiDung = mtct_kn[i];
+                add.STT = i + 1;
+                add.ChuongTrinhDaoTao_Id = idctdt;
+                db.MucTieuDaoTaos.Add(add);
+                db.SaveChanges();
+            }
+            for (int i = 0; i < mtct_td.Count; i++)
+            {
+                MucTieuDaoTao add = new MucTieuDaoTao();
+                add.Loai = "Thái độ";
+                add.NoiDung = mtct_td[i];
+                add.STT = i + 1;
+                add.ChuongTrinhDaoTao_Id = idctdt;
+                db.MucTieuDaoTaos.Add(add);
+                db.SaveChanges();
+            }
+
+            //Nhiều mục
+            load.ThoiGianDaoTao = (double)nThờigian_năm.Value;
+            load.ThangDiem = (int)nThangđiểm.Value;
+            object klkt = this.wbKhốilượngkt.Document.InvokeScript("getcontent").ToString();
+            load.KhoiLuongKienThucToanKhoa = klkt.ToString();
+            object dt = wbĐốitượng.Document.InvokeScript("getcontent");
+            load.DoiTuongTuyenSinh = dt.ToString();
+            object qt = wbQuytrình.Document.InvokeScript("getcontent");
+            load.QuyTrinhDaoTao = qt.ToString();
+
+            //quản lí môn học
+            //cở sở vật chất
+            object csvc = wbCơsởvậtchất.Document.InvokeScript("getcontent");
+            load.CoSoVatChat = csvc.ToString();
+            db.SaveChanges();
+            MessageBox.Show("Chỉnh sửa thành công");
+            this.Close();
         }
        
 

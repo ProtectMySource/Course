@@ -23,10 +23,31 @@ namespace Prototype_SEP_Team3.Educational_Program
             }
         }
 
-        //Xử lí khi thời gian đào tạo 
-        public void handleThoigiandaotao(double newtime, int ctdt)
+        //kiem tra khi thời gian đào tạo thay đổi
+        public string checkThoigiandaotao(double newtime, int ctdt)
         {
-
+            DBEntities db = new DBEntities();
+            ThongTinChung_CTDT find = db.ThongTinChung_CTDT.Single(x => x.ChuongTrinhDaoTao_Id == ctdt);
+            List<MonHoc> findcourse = db.MonHocs.Where(x => x.ChuongTrinhDaoTao_Id == ctdt).ToList();
+            if ((newtime != find.ThoiGianDaoTao)&&(findcourse.Count>0))
+            {
+                return "false";
+            }
+            else
+            {
+                return "true";
+            }
         }
+
+        // xu li khi thoi gian thay doi
+        public void handleThoigiandaotao(int ctdt)
+        {
+            DBEntities db = new DBEntities();
+            db.SP_THOIGIANDAOTAO_HANDLE(ctdt);
+        }
+
+
+        
+        
     }
 }

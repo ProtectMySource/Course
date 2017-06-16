@@ -609,6 +609,9 @@
       <Parameter Name="hk" Mode="In" Type="Int32" />
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="SP_MUCTIEUDAOTAO_DEL">
+      <Parameter Name="ctdt" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="sp_renamediagram">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -616,6 +619,9 @@
     </FunctionImport>
     <FunctionImport Name="SP_TEXT" ReturnType="Collection(team3Model.SP_TEXT_Result)">
       <Parameter Name="idmonhoc" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_THOIGIANDAOTAO_HANDLE">
+      <Parameter Name="ctdt" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>

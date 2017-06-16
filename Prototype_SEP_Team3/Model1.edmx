@@ -479,6 +479,9 @@ warning 6002: The table/view 'team3.dbo.TaiLieuMonHoc' does not have a primary k
           <Parameter Name="hk" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_MUCTIEUDAOTAO_DEL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ctdt" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -486,6 +489,9 @@ warning 6002: The table/view 'team3.dbo.TaiLieuMonHoc' does not have a primary k
         </Function>
         <Function Name="SP_TEXT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idmonhoc" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_THOIGIANDAOTAO_HANDLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ctdt" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="team3ModelStoreContainer">
@@ -1209,6 +1215,9 @@ warning 6002: The table/view 'team3.dbo.TaiLieuMonHoc' does not have a primary k
             <Parameter Name="hk" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_MUCTIEUDAOTAO_DEL">
+            <Parameter Name="ctdt" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_renamediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -1216,6 +1225,9 @@ warning 6002: The table/view 'team3.dbo.TaiLieuMonHoc' does not have a primary k
           </FunctionImport>
           <FunctionImport Name="SP_TEXT" ReturnType="Collection(team3Model.SP_TEXT_Result)">
             <Parameter Name="idmonhoc" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_THOIGIANDAOTAO_HANDLE">
+            <Parameter Name="ctdt" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
@@ -1528,6 +1540,7 @@ warning 6002: The table/view 'team3.dbo.TaiLieuMonHoc' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_MUCTIEUDAOTAO_DEL" FunctionName="team3Model.Store.SP_MUCTIEUDAOTAO_DEL" />
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="team3Model.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="SP_TEXT" FunctionName="team3Model.Store.SP_TEXT">
             <ResultMapping>
@@ -1541,6 +1554,7 @@ warning 6002: The table/view 'team3.dbo.TaiLieuMonHoc' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_THOIGIANDAOTAO_HANDLE" FunctionName="team3Model.Store.SP_THOIGIANDAOTAO_HANDLE" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="team3Model.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>

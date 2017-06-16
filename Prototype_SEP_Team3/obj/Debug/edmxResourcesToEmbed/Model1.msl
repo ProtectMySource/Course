@@ -264,6 +264,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_MUCTIEUDAOTAO_DEL" FunctionName="team3Model.Store.SP_MUCTIEUDAOTAO_DEL" />
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="team3Model.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="SP_TEXT" FunctionName="team3Model.Store.SP_TEXT">
       <ResultMapping>
@@ -277,6 +278,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_THOIGIANDAOTAO_HANDLE" FunctionName="team3Model.Store.SP_THOIGIANDAOTAO_HANDLE" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="team3Model.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping>
